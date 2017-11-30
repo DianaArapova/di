@@ -12,7 +12,6 @@ namespace TagsCloudVisualization.CircularCloud
 	[TestFixture]
 	class CircularCloudLayouter_Should
 	{
-
 		private CircularCloudLayouter cloud = new CircularCloudLayouter(new Point(30, 30), 
 			new DefaultRectanglePlacer(new Point(30, 30)));
 

@@ -55,10 +55,16 @@
     <Compile Include="CircularCloud\CircularCloudLayouter.cs" />
     <Compile Include="CircularCloud\CircularCloudLayouter_Should.cs" />
     <Compile Include="CircularCloud\ICircularCloudLayouter.cs" />
+    <Compile Include="CloudDrawer\CloudDrawer.cs" />
+    <Compile Include="CloudDrawer\ICloudDrawer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RectanglePlacer\DefaultRectanglePlacer.cs" />
     <Compile Include="RectanglePlacer\IRectanglePlacer.cs" />
+    <Compile Include="TagReader\ITagReader.cs" />
+    <Compile Include="TagReader\TagReaderFromTextFile.cs" />
+    <Compile Include="TagReader\TextParser\EnglishTextParser.cs" />
+    <Compile Include="TagReader\TextParser\IParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -67,5 +73,6 @@
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

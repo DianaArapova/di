@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using TagsCloudVisualization.RectanglePlacer;
 
 namespace TagsCloudVisualization.CircularCloud
@@ -25,27 +23,5 @@ namespace TagsCloudVisualization.CircularCloud
 				throw new ArgumentException("Size of rectangle is negative");
 			return rectanglePlacer.FindLocationForRectangle(rectangleSize);
 		}
-
-		/*public void DrawCloud(string nameOfFile)
-		{
-			var height = 0;
-			var width = 0;
-			foreach (var rectangle in cloudOfRectangles)
-			{
-				width = Math.Max(width, rectangle.X + rectangle.Width);
-				height = Math.Max(height, rectangle.Y + rectangle.Height);
-			}
-
-			var bitmap = new Bitmap(width + 100, height + 100);
-			var graphics = Graphics.FromImage(bitmap);
-			var centerRect = new Rectangle(center, new Size(1, 1));
-			graphics.DrawRectangle(new Pen(Color.Brown), centerRect);
-			foreach (var rectangle in cloudOfRectangles)
-				graphics.DrawRectangle(new Pen(Color.Brown), rectangle);
-			graphics.Dispose();
-			bitmap.Save(nameOfFile);
-		}*/
 	}
-
-	
 }
