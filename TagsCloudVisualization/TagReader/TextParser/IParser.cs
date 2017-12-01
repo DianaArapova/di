@@ -5,6 +5,6 @@ namespace TagsCloudVisualization.TagReader.TextParser
 {
 	public interface IParser
 	{
-		IEnumerable<string> Parse(StreamReader textReader);
+		IEnumerable<string> Parse(string path);
 	}
 }
