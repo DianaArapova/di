@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Drawing;
-using TagsCloudVisualization.RectanglePlacer;
+using TagsCloudVisualization.CircularCloud.RectanglePlacer;
 
-namespace TagsCloudVisualization.CircularCloud
+namespace TagsCloudVisualization.CircularCloud.CloudLayouter
 {
 	public class CircularCloudLayouter : ICircularCloudLayouter
 	{

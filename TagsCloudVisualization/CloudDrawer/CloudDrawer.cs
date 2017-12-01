@@ -6,55 +6,30 @@ namespace TagsCloudVisualization.CloudDrawer
 {
 	public class CloudDrawer : ICloudDrawer
 	{
-		private Brush TagColor { get; }
-		private string TagFontName { get; }
-		private Size ImgSize { get; }
+		private readonly Brush tagColor;
+		private readonly string tagFontName;
+		private Size imageSize;
 
-		public CloudDrawer(Brush color, string fontName, Size imgSize)
+		public CloudDrawer(Brush tagColor, string tagFontName, Size imageSize)
 		{
-			TagColor = color;
-			TagFontName = fontName;
-			ImgSize = imgSize;
+			this.tagColor = tagColor;
+			this.tagFontName = tagFontName;
+			this.imageSize = imageSize;
 		}
 
 		public Bitmap Draw(Dictionary<string, Rectangle> tagList)
 		{
-			var bitmap = new Bitmap(ImgSize.Width, ImgSize.Height);
+			var bitmap = new Bitmap(imageSize.Width, imageSize.Height);
 			using (var gr = Graphics.FromImage(bitmap))
 			{
 				foreach (var tag in tagList)
 				{
-					gr.DrawRectangle(new Pen(Color.Aquamarine), tag.Value);
-					gr.DrawString(tag.Key, new Font(TagFontName, GetFontSize(gr, tag.Key, tag.Value)), TagColor,
+					gr.DrawRectangle(new Pen(Color.Black), tag.Value);
+					gr.DrawString(tag.Key, new Font(tagFontName, tag.Value.Height / 2), tagColor,
 						tag.Value.Location);
 				}
 			}
 			return bitmap;
-		}
-
-		public void DrawCloud(List<Rectangle> cloudOfRectangles, string nameOfFile, Point center)
-		{
-			var height = 0;
-			var width = 0;
-			foreach (var rectangle in cloudOfRectangles)
-			{
-				width = Math.Max(width, rectangle.X + rectangle.Width);
-				height = Math.Max(height, rectangle.Y + rectangle.Height);
-			}
-
-			var bitmap = new Bitmap(width + 100, height + 100);
-			var graphics = Graphics.FromImage(bitmap);
-			var centerRect = new Rectangle(center, new Size(1, 1));
-			graphics.DrawRectangle(new Pen(Color.Brown), centerRect);
-			foreach (var rectangle in cloudOfRectangles)
-				graphics.DrawRectangle(new Pen(Color.Brown), rectangle);
-			graphics.Dispose();
-			bitmap.Save(nameOfFile);
-		}
-
-		public int GetFontSize(Graphics gr, string word, Rectangle rectangle)
-		{
-			return rectangle.Height / 2;
 		}
 	}
 }

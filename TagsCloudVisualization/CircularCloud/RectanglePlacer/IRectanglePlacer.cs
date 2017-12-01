@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace TagsCloudVisualization.RectanglePlacer
+namespace TagsCloudVisualization.CircularCloud.RectanglePlacer
 {
 	public interface IRectanglePlacer
 	{

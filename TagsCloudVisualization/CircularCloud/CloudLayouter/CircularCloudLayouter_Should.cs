@@ -5,29 +5,15 @@ using System.Linq;
 using FluentAssertions;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
-using TagsCloudVisualization.RectanglePlacer;
+using TagsCloudVisualization.CircularCloud.RectanglePlacer;
 
-namespace TagsCloudVisualization.CircularCloud
+namespace TagsCloudVisualization.CircularCloud.CloudLayouter
 {
 	[TestFixture]
 	class CircularCloudLayouter_Should
 	{
 		private CircularCloudLayouter cloud = new CircularCloudLayouter(new Point(30, 30), 
 			new DefaultRectanglePlacer(new Point(30, 30)));
-
-		[TearDown]
-		public void TearDown()
-		{
-			if (!TestContext.CurrentContext.Result.Outcome.Status.Equals(TestStatus.Failed))
-				return;
-
-			var nameOfFile = TestContext.CurrentContext.TestDirectory +
-							 TestContext.CurrentContext.Test.Name + ".bmp";
-			//cloud.DrawCloud(nameOfFile);
-
-			Console.WriteLine("Tag cloud visualization saved to file " +
-							  nameOfFile);
-		}
 
 		[TestCase(10, 10)]
 		[TestCase(11, 11)]

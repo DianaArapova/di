@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
+using TagsCloudVisualization.TagReader.TagReader;
 
 namespace TagsCloudVisualization.TagReader.TextParser
 {
@@ -14,7 +17,11 @@ namespace TagsCloudVisualization.TagReader.TextParser
 		public IEnumerable<string> GetWordsFromLine(string line)
 		{
 			yield return line;
+			/*var regexForEnglishWord = new Regex(@"[A-Za-z]+'");
+			foreach (Match match in regexForEnglishWord.Matches(line))
+				yield return match.Value;*/
 		}
+
 		public IEnumerable<string> Parse(string path)
 		{
 			foreach (var line in tagReader.Read(path))

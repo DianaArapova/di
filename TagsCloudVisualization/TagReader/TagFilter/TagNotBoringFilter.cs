@@ -4,10 +4,11 @@ namespace TagsCloudVisualization.TagReader.TagFilter
 {
 	public class TagNotBoringFilter : ITagFilter
 	{
-		private readonly List<string> boringWords;
-		public TagNotBoringFilter(List<string> boringWords)
+		private readonly List<string> boringWords = new List<string>();
+		public TagNotBoringFilter(List<string> boringWords=null)
 		{
-			this.boringWords = boringWords;
+			if (!(boringWords is null))
+				this.boringWords = boringWords;
 		}
 		public bool IsSuitableWorld(string word)
 		{

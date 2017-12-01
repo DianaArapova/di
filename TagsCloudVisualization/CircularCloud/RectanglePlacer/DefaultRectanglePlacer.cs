@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
-namespace TagsCloudVisualization.RectanglePlacer
+namespace TagsCloudVisualization.CircularCloud.RectanglePlacer
 {
 	public class DefaultRectanglePlacer : IRectanglePlacer
 	{
 		private readonly Point center;
 		private int radius;
 		private readonly List<Rectangle> cloudOfRectangles;
-		public IReadOnlyList<Rectangle> CloudOfRectangles => cloudOfRectangles;
 
 		public DefaultRectanglePlacer(Point center)
 		{
@@ -68,6 +67,7 @@ namespace TagsCloudVisualization.RectanglePlacer
 			}
 
 			UpdateRadius(rectangle);
+			cloudOfRectangles.Add(rectangle);
 			return rectangle;
 		}
 	}
