@@ -16,10 +16,9 @@ namespace TagsCloudVisualization.TagReader.TextParser
 
 		public IEnumerable<string> GetWordsFromLine(string line)
 		{
-			yield return line;
-			/*var regexForEnglishWord = new Regex(@"[A-Za-z]+'");
+			var regexForEnglishWord = new Regex(@"[A-Za-z']*");
 			foreach (Match match in regexForEnglishWord.Matches(line))
-				yield return match.Value;*/
+				yield return match.Value;
 		}
 
 		public IEnumerable<string> Parse(string path)
