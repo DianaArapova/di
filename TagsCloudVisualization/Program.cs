@@ -20,7 +20,7 @@ namespace TagsCloudVisualization
 			if (!Parser.Default.ParseArguments(args, options))
 				return;
 
-			var cloudCenter = new Point(400, 400);
+			var cloudCenter = new Point(500, 500);
 
 			var container = new ContainerBuilder();
 

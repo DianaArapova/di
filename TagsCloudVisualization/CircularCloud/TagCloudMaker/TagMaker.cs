@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using TagsCloudVisualization.CircularCloud.CloudLayouter;
@@ -23,8 +24,8 @@ namespace TagsCloudVisualization.CircularCloud.TagCloudMaker
 				.ToDictionary(tag => tag.Key,
 					tag =>
 					{
-						var rectangleSize = new Size(tag.Key.Length * tag.Value * 15, 
-							tag.Value * 30);
+						var rectangleSize = new Size(tag.Key.Length * tag.Value * 10, 
+							tag.Value * 20);
 						return cloudMaker.PutNextRectangle(rectangleSize);
 					});
 		}
