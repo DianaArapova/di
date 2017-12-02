@@ -6,8 +6,8 @@ namespace TagsCloudVisualization.TagReader.WordlistUpdater
 {
 	public class ConverWordlistForSuitable : IWordListUpdater
 	{
-		private readonly List<ITranfrormWord> tagFilter;
-		public ConverWordlistForSuitable(List<ITranfrormWord> tagFilter)
+		private readonly ITranfrormWord[] tagFilter;
+		public ConverWordlistForSuitable(ITranfrormWord[] tagFilter)
 		{
 			this.tagFilter = tagFilter;
 		}
