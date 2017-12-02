@@ -16,15 +16,9 @@ namespace TagsCloudVisualization
 
 			var imageSize = new Size(options.Width, options.Height);
 			var container = new ContainerBuilder();
-
-			container.RegisterType<Config>().AsSelf().WithParameters(new List<Parameter>
-			{
-				new NamedParameter("tagColor", Brushes.Black),
-				new NamedParameter("imageSize", imageSize),
-				new NamedParameter("center", new Point(imageSize.Width / 2, imageSize.Height / 2)),
-				new NamedParameter("tagFontName", options.Font),
-				new NamedParameter("wordsCount", options.Count)
-			});
+			var center = new Point(imageSize.Width / 2, imageSize.Height / 2);
+			container.Register(_ => new Config(Brushes.Black, imageSize, 
+				center, options.Font, options.Count)).SingleInstance();
 
 			container.RegisterAssemblyTypes(typeof(Program).Assembly)
 				.AsImplementedInterfaces()

@@ -23,7 +23,6 @@ namespace TagsCloudVisualization.CloudDrawer
 			{
 				foreach (var tag in tagList)
 				{
-					gr.DrawRectangle(new Pen(Color.Black), tag.Value);
 					gr.DrawString(tag.Key, new Font(tagFontName, tag.Value.Height / 2), tagColor,
 						tag.Value.Location);
 				}
