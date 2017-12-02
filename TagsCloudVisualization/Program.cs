@@ -15,8 +15,9 @@ namespace TagsCloudVisualization
 			var imageSize = new Size(options.Width, options.Height);
 			var container = new ContainerBuilder();
 			var center = new Point(imageSize.Width / 2, imageSize.Height / 2);
-			container.Register(_ => new Config(Brushes.Black, imageSize, center, 
-				options.Font, options.Count))
+			var brush = new[] {Brushes.Blue, Brushes.Black, Brushes.Red};
+			container.Register(_ => new Config(brush, imageSize, center, 
+				options.Font, options.Count, options.Noun, options.Adjective, options.Verb))
 			.SingleInstance();
 
 			container.RegisterAssemblyTypes(typeof(Program).Assembly)

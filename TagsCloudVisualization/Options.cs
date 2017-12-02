@@ -23,6 +23,15 @@ namespace TagsCloudVisualization
 		[Option('f', "Font", DefaultValue = "Tahoma", HelpText = "Font Name")]
 		public string Font { get; set; }
 
+		[Option('v', "verb", DefaultValue = false, HelpText = "Verbs in cloud")]
+		public bool Verb { get; set; }
+
+		[Option('n', "noun", DefaultValue = false, HelpText = "Nouns in cloud")]
+		public bool Noun { get; set; }
+
+		[Option('a', "adjective", DefaultValue = false, HelpText = "Adjectives in cloud")]
+		public bool Adjective { get; set; }
+
 		[HelpOption]
 		public string GetUsage()
 		{

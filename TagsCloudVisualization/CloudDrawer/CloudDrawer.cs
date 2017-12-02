@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace TagsCloudVisualization.CloudDrawer
 {
 	public class CloudDrawer : ICloudDrawer
 	{
-		private readonly Brush tagColor;
+		private readonly Brush[] tagColor;
 		private readonly string tagFontName;
 		private Size imageSize;
 
@@ -21,9 +22,11 @@ namespace TagsCloudVisualization.CloudDrawer
 			var bitmap = new Bitmap(imageSize.Width, imageSize.Height);
 			using (var gr = Graphics.FromImage(bitmap))
 			{
+				var random = new Random();
 				foreach (var tag in tagList)
 				{
-					gr.DrawString(tag.Key, new Font(tagFontName, tag.Value.Height / 2), tagColor,
+					var index = random.Next(3);
+					gr.DrawString(tag.Key, new Font(tagFontName, tag.Value.Height / 2), tagColor[index],
 						tag.Value.Location);
 				}
 			}
