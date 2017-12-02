@@ -11,7 +11,7 @@ namespace TagsCloudVisualization.TagReader.TagFilter
 				this.boringWords = boringWords;
 		}
 		public bool IsSuitableWorld(string word)
-		{
+		{	
 			return !boringWords.Contains(word) && word.Length > 3;
 		}
 	}

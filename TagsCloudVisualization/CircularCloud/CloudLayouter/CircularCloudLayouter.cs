@@ -9,8 +9,9 @@ namespace TagsCloudVisualization.CircularCloud.CloudLayouter
 		public readonly Point Center;
 		private readonly IRectanglePlacer rectanglePlacer;
 		
-		public CircularCloudLayouter(Point center, IRectanglePlacer rectanglePlacer)
+		public CircularCloudLayouter(Config congig, IRectanglePlacer rectanglePlacer)
 		{
+			var center = congig.Center;
 			if (center.X < 0 || center.Y < 0)
 				throw new ArgumentException("Coordinat of center is negative");
 			Center = center;

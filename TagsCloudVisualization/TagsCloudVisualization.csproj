@@ -66,6 +66,7 @@
     <Compile Include="CloudCreatorFromText.cs" />
     <Compile Include="CloudDrawer\CloudDrawer.cs" />
     <Compile Include="CloudDrawer\ICloudDrawer.cs" />
+    <Compile Include="Config.cs" />
     <Compile Include="ITagCloudCreatorFromText.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="Program.cs" />
@@ -73,13 +74,17 @@
     <Compile Include="CircularCloud\RectanglePlacer\DefaultRectanglePlacer.cs" />
     <Compile Include="CircularCloud\RectanglePlacer\IRectanglePlacer.cs" />
     <Compile Include="TagReader\TagReader\ITagReader.cs" />
-    <Compile Include="TagReader\PropertyForWordlist\GetterFrequency.cs" />
-    <Compile Include="TagReader\PropertyForWordlist\IGetterIntegerProperty.cs" />
+    <Compile Include="TagReader\PropertyForWordlist\Frequency.cs" />
+    <Compile Include="TagReader\PropertyForWordlist\IPropertyForWordlist.cs" />
     <Compile Include="TagReader\TagFilter\ITagFilter.cs" />
     <Compile Include="TagReader\TagFilter\TagNotBoringFilter.cs" />
     <Compile Include="TagReader\TagReader\TagReaderFromTextFile.cs" />
     <Compile Include="TagReader\TextParser\EnglishTextParser.cs" />
     <Compile Include="TagReader\TextParser\IParser.cs" />
+    <Compile Include="TagReader\WordlistUpdater\ConvertorWordToLowercase.cs" />
+    <Compile Include="TagReader\WordlistUpdater\ConverWordlistForSuitable.cs" />
+    <Compile Include="TagReader\WordlistUpdater\IWordListUpdater.cs" />
+    <Compile Include="TagReader\WordlistUpdater\IWordUpdater.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 
 namespace TagsCloudVisualization.CloudDrawer
@@ -10,11 +9,11 @@ namespace TagsCloudVisualization.CloudDrawer
 		private readonly string tagFontName;
 		private Size imageSize;
 
-		public CloudDrawer(Brush tagColor, string tagFontName, Size imageSize)
+		public CloudDrawer(Config config)
 		{
-			this.tagColor = tagColor;
-			this.tagFontName = tagFontName;
-			this.imageSize = imageSize;
+			tagColor = config.TagColor;
+			tagFontName = config.TagFontName;
+			imageSize = config.ImageSize;
 		}
 
 		public Bitmap Draw(Dictionary<string, Rectangle> tagList)

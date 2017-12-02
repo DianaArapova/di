@@ -1,14 +1,8 @@
-﻿using System.Drawing;
+﻿using System.Collections.Generic;
+using System.Drawing;
 using Autofac;
+using Autofac.Core;
 using CommandLine;
-using TagsCloudVisualization.CircularCloud.CloudLayouter;
-using TagsCloudVisualization.CircularCloud.RectanglePlacer;
-using TagsCloudVisualization.CircularCloud.TagCloudMaker;
-using TagsCloudVisualization.CloudDrawer;
-using TagsCloudVisualization.TagReader.PropertyForWordlist;
-using TagsCloudVisualization.TagReader.TagFilter;
-using TagsCloudVisualization.TagReader.TagReader;
-using TagsCloudVisualization.TagReader.TextParser;
 
 namespace TagsCloudVisualization
 {
@@ -20,38 +14,29 @@ namespace TagsCloudVisualization
 			if (!Parser.Default.ParseArguments(args, options))
 				return;
 
-			var cloudCenter = new Point(500, 500);
-
+			var imageSize = new Size(options.Width, options.Height);
 			var container = new ContainerBuilder();
 
-			container.RegisterType<CircularCloudLayouter>()
-				.As<ICircularCloudLayouter>()
-				.WithParameter("center", cloudCenter);
-			container.RegisterType<DefaultRectanglePlacer>()
-				.As<IRectanglePlacer>()
-				.WithParameter("center", cloudCenter)
+			container.RegisterType<Config>().AsSelf().WithParameters(new List<Parameter>
+			{
+				new NamedParameter("tagColor", Brushes.Black),
+				new NamedParameter("imageSize", imageSize),
+				new NamedParameter("center", new Point(imageSize.Width / 2, imageSize.Height / 2)),
+				new NamedParameter("tagFontName", options.Font),
+				new NamedParameter("wordsCount", options.Count)
+			});
+
+			container.RegisterAssemblyTypes(typeof(Program).Assembly)
+				.AsImplementedInterfaces()
 				.SingleInstance();
-			container.RegisterType<TagMaker>()
-				.As<ITagMaker>()
-				.WithParameter("imageSize", new Size(options.Width, options.Height));
-			container.RegisterType<CloudDrawer.CloudDrawer>()
-				.As<ICloudDrawer>()
-				.WithParameter("tagColor", Brushes.Black)
-				.WithParameter("tagFontName", options.Font)
-				.WithParameter("imageSize", new Size(options.Width, options.Height));
-			container.RegisterType<GetterFrequency>()
-				.As<IGetterIntegerProperty>()
-				.WithParameter("wordsCount", options.Count);
-			container.RegisterType<TagNotBoringFilter>()
-				.As<ITagFilter>();
-			container.RegisterType<TagReaderFromTextFile>()
-				.As<ITagReader>();
-			container.RegisterType<EnglishTextParser>()
-				.As<IParser>();
-			container.RegisterType<CloudCreatorFromText>().AsSelf();
+
+			container
+				.RegisterType<CloudCreatorFromText>()
+				.AsSelf();
 			var build = container.Build();
+
 			var cloudtagDrawer = build.Resolve<CloudCreatorFromText>();
-			cloudtagDrawer.FromTextToImg(options.InputFile, options.OutputFile);
+			cloudtagDrawer.FromTextToImg(options.InputFile, options.OutputFile, imageSize);
 		}
 	}
 }

@@ -1,22 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using TagsCloudVisualization.TagReader.TagFilter;
 
 namespace TagsCloudVisualization.TagReader.PropertyForWordlist
 {
-	public class GetterFrequency : IGetterIntegerProperty
+	public class Frequency : IPropertyForWordlist
 	{
 		private readonly int wordsCount;
-		private readonly ITagFilter tagFilter;
-		public GetterFrequency(ITagFilter tagFilter, int wordsCount = int.MaxValue)
+		public Frequency(Config config)
 		{
-			this.wordsCount = wordsCount;
-			this.tagFilter = tagFilter;
+			wordsCount = config.WordsCount;
 		}
 		public Dictionary<string, int> GetProperty(IEnumerable<string> wordlist)
 		{
-			return wordlist.Where(word => tagFilter.IsSuitableWorld(word))
-				.Select(word => word.ToLower())
+			return wordlist
 				.GroupBy(word => word)
 				.OrderByDescending(wordList => wordList.Count())
 				.Take(wordsCount)

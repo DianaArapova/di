@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Linq;
 using FluentAssertions;
 using NUnit.Framework;
-using NUnit.Framework.Interfaces;
 using TagsCloudVisualization.CircularCloud.RectanglePlacer;
 
 namespace TagsCloudVisualization.CircularCloud.CloudLayouter
@@ -12,8 +11,9 @@ namespace TagsCloudVisualization.CircularCloud.CloudLayouter
 	[TestFixture]
 	class CircularCloudLayouter_Should
 	{
-		private CircularCloudLayouter cloud = new CircularCloudLayouter(new Point(30, 30), 
-			new DefaultRectanglePlacer(new Point(30, 30)));
+		private static Config config = new Config(null, new Size(1000, 1000), new Point(30, 30), null, 150);
+		private CircularCloudLayouter cloud = new CircularCloudLayouter(config, 
+			new DefaultRectanglePlacer(config));
 
 		[TestCase(10, 10)]
 		[TestCase(11, 11)]
@@ -22,7 +22,8 @@ namespace TagsCloudVisualization.CircularCloud.CloudLayouter
 			(int width, int height)
 		{
 			var center = new Point(120, 120);
-			cloud = new CircularCloudLayouter(center, new DefaultRectanglePlacer(center));
+			Config config = new Config(null, new Size(1000, 1000), center, null, 1500);
+			cloud = new CircularCloudLayouter(config, new DefaultRectanglePlacer(config));
 			var x = center.X - width / 2;
 			var y = center.Y - height / 2;
 			var rectangle = new Rectangle(x, y, width, height);
@@ -33,8 +34,8 @@ namespace TagsCloudVisualization.CircularCloud.CloudLayouter
 		public void PutNextRectangle_ReturnNotFirstRectangleWithRigthSize()
 		{
 			var center = new Point(12, 12);
-			cloud = new CircularCloudLayouter(center, new DefaultRectanglePlacer(center));
-			var sizeOfRectangle = new Size(4, 4);
+			Config config = new Config(null, new Size(1000, 1000), center, null, 1500);
+			cloud = new CircularCloudLayouter(config, new DefaultRectanglePlacer(config)); var sizeOfRectangle = new Size(4, 4);
 			cloud.PutNextRectangle(sizeOfRectangle);
 			cloud.PutNextRectangle(sizeOfRectangle).Size.
 				ShouldBeEquivalentTo(sizeOfRectangle);
@@ -48,7 +49,8 @@ namespace TagsCloudVisualization.CircularCloud.CloudLayouter
 		public void PutNextRectangle_ReturnRectangles_DoNotHaveIntersection(int count, int width, int height)
 		{
 			var center = new Point(150, 150);
-			cloud = new CircularCloudLayouter(center, new DefaultRectanglePlacer(center));
+			Config config = new Config(null, new Size(1000, 1000), center, null, 1500);
+			cloud = new CircularCloudLayouter(config, new DefaultRectanglePlacer(config));
 			var listOfRectangles = new List<Rectangle>();
 			for (var i = 0; i < count; i++)
 			{
@@ -64,15 +66,18 @@ namespace TagsCloudVisualization.CircularCloud.CloudLayouter
 		public void PutNextRectangle_CenterWithNegativeCoordinates_ThrowException()
 		{
 			var center = new Point(-1, 7);
+			Config config = new Config(null, new Size(1000, 1000), center, null, 1500);
+			
 			Assert.Throws<ArgumentException>(() =>
-			new CircularCloudLayouter(center, new DefaultRectanglePlacer(center)));
+				new CircularCloudLayouter(config, new DefaultRectanglePlacer(config)));
 		}
 
 		[Test]
 		public void PutNextRectangle_GetRectangleWithNegativeSize_ThrowException()
 		{
 			var center = new Point(6, 7);
-			cloud = new CircularCloudLayouter(center, new DefaultRectanglePlacer(center));
+			Config config = new Config(null, new Size(1000, 1000), center, null, 1500);
+			cloud = new CircularCloudLayouter(config, new DefaultRectanglePlacer(config));
 			Assert.Throws<ArgumentException>(() => cloud.PutNextRectangle(new Size(4, -4)));
 		}
 
@@ -92,7 +97,8 @@ namespace TagsCloudVisualization.CircularCloud.CloudLayouter
 			(int count, int width, int height)
 		{
 			var center = new Point(150, 150);
-			cloud = new CircularCloudLayouter(center, new DefaultRectanglePlacer(center));
+			Config config = new Config(null, new Size(1000, 1000), center, null, 1500);
+			cloud = new CircularCloudLayouter(config, new DefaultRectanglePlacer(config));
 			double area = 0;
 			double radiusOfCloud = 0;
 			for (var i = 0; i < count; i++)

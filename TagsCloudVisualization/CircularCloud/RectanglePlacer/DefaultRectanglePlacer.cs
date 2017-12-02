@@ -11,9 +11,9 @@ namespace TagsCloudVisualization.CircularCloud.RectanglePlacer
 		private int radius;
 		private readonly List<Rectangle> cloudOfRectangles;
 
-		public DefaultRectanglePlacer(Point center)
+		public DefaultRectanglePlacer(Config config)
 		{
-			this.center = center;
+			center = config.Center;
 			cloudOfRectangles = new List<Rectangle>();
 		}
 

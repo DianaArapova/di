@@ -2,7 +2,7 @@
 
 namespace TagsCloudVisualization.TagReader.PropertyForWordlist
 {
-	public interface IGetterIntegerProperty
+	public interface IPropertyForWordlist
 	{
 		Dictionary<string, int> GetProperty(IEnumerable<string> wordlist);
 	}
