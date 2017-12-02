@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using TagsCloudVisualization.TagReader.TransformWords;
 
 namespace TagsCloudVisualization.TagReader.WordlistUpdater
@@ -12,12 +13,8 @@ namespace TagsCloudVisualization.TagReader.WordlistUpdater
 		}
 		public IEnumerable<string> UpdateWordList(IEnumerable<string> wordlist)
 		{
-			var goodForWordlist = wordlist;
-			foreach (var tranfrorm in tagFilter)
-			{
-				goodForWordlist = tranfrorm.Transform(goodForWordlist);
-			}
-			return goodForWordlist;
+			return tagFilter.Aggregate(wordlist, 
+				(current, tranfrorm) => tranfrorm.Transform(current));
 		}
 	}
 }
