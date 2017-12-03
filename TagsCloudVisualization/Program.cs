@@ -25,7 +25,7 @@ namespace TagsCloudVisualization
 			.SingleInstance();
 
 			container.RegisterAssemblyTypes(typeof(Program).Assembly)
-				.AsImplementedInterfaces().SingleInstance();
+				.AsImplementedInterfaces();
 
 			container
 				.RegisterType<CloudCreatorFromText>()
