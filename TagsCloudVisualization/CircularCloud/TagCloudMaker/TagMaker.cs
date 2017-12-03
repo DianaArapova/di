@@ -23,7 +23,7 @@ namespace TagsCloudVisualization.CircularCloud.TagCloudMaker
 
 		public Dictionary<string, Rectangle> MakeCloud(Dictionary<string, int> tagsList, Size imageSize)
 		{
-			cloudMaker = cloudMakerFunc.Invoke();
+			cloudMaker = cloudMakerFunc();
 			return tagsList
 				.ToDictionary(tag => tag.Key,
 					tag =>
