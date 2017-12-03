@@ -8,12 +8,6 @@ namespace TagsCloudVisualization.TagReader.TextParser
 {
 	public class EnglishTextParser : IParser
 	{
-		private readonly ITagReader tagReader;
-		public EnglishTextParser(ITagReader tagReader)
-		{
-			this.tagReader = tagReader;
-		}
-
 		public IEnumerable<string> GetWordsFromLine(string line)
 		{
 			var regexForEnglishWord = new Regex(@"[A-Za-z']*");
@@ -21,9 +15,9 @@ namespace TagsCloudVisualization.TagReader.TextParser
 				yield return match.Value;
 		}
 
-		public IEnumerable<string> Parse(string path)
+		public IEnumerable<string> Parse(IEnumerable<string> text)
 		{
-			foreach (var line in tagReader.Read(path))
+			foreach (var line in text)
 			{
 				foreach (var word in GetWordsFromLine(line))
 				{

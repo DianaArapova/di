@@ -1,6 +1,9 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using Autofac;
+using Autofac.Core;
 using CommandLine;
+using TagsCloudVisualization.CircularCloud.RectanglePlacer;
 
 namespace TagsCloudVisualization
 {
@@ -21,9 +24,13 @@ namespace TagsCloudVisualization
 			.SingleInstance();
 
 			container.RegisterAssemblyTypes(typeof(Program).Assembly)
-				.AsImplementedInterfaces()
-				.SingleInstance();
+				.AsImplementedInterfaces();
 
+			container.Register<Func<DefaultRectanglePlacer, IRectanglePlacer>>(c =>
+			{
+				var context = c.Resolve<IComponentContext>();
+				return s => context.ResolveKeyed<IRectanglePlacer>(s);
+			});
 			container
 				.RegisterType<CloudCreatorFromText>()
 				.AsSelf();
