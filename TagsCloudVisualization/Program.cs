@@ -3,6 +3,7 @@ using System.Drawing;
 using Autofac;
 using Autofac.Core;
 using CommandLine;
+using TagsCloudVisualization.CircularCloud.CloudLayouter;
 using TagsCloudVisualization.CircularCloud.RectanglePlacer;
 
 namespace TagsCloudVisualization
@@ -24,18 +25,13 @@ namespace TagsCloudVisualization
 			.SingleInstance();
 
 			container.RegisterAssemblyTypes(typeof(Program).Assembly)
-				.AsImplementedInterfaces();
+				.AsImplementedInterfaces().SingleInstance();
 
-			container.Register<Func<DefaultRectanglePlacer, IRectanglePlacer>>(c =>
-			{
-				var context = c.Resolve<IComponentContext>();
-				return s => context.ResolveKeyed<IRectanglePlacer>(s);
-			});
 			container
 				.RegisterType<CloudCreatorFromText>()
 				.AsSelf();
 			var build = container.Build();
-
+			build.Resolve<Func<ICircularCloudLayouter>>();
 			var cloudtagDrawer = build.Resolve<CloudCreatorFromText>();
 			cloudtagDrawer.FromTextToImg(options.InputFile, options.OutputFile, imageSize);
 		}

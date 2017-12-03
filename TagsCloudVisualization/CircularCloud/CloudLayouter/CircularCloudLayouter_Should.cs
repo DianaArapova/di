@@ -14,7 +14,7 @@ namespace TagsCloudVisualization.CircularCloud.CloudLayouter
 		private static Config config = new Config(null, new Size(1000, 1000), 
 			new Point(30, 30), null, 150, false, false, false);
 		private CircularCloudLayouter cloud = new CircularCloudLayouter(config, 
-			() => new DefaultRectanglePlacer(config));
+			 new DefaultRectanglePlacer(config));
 
 		[TestCase(10, 10)]
 		[TestCase(11, 11)]
@@ -24,7 +24,7 @@ namespace TagsCloudVisualization.CircularCloud.CloudLayouter
 		{
 			var center = new Point(120, 120);
 			Config config = new Config(null, new Size(1000, 1000), center, null, 1500, false, false, false);
-			cloud = new CircularCloudLayouter(config, () =>new DefaultRectanglePlacer(config));
+			cloud = new CircularCloudLayouter(config, new DefaultRectanglePlacer(config));
 			var x = center.X - width / 2;
 			var y = center.Y - height / 2;
 			var rectangle = new Rectangle(x, y, width, height);
@@ -36,7 +36,7 @@ namespace TagsCloudVisualization.CircularCloud.CloudLayouter
 		{
 			var center = new Point(12, 12);
 			Config config = new Config(null, new Size(1000, 1000), center, null, 1500, false, false, false);
-			cloud = new CircularCloudLayouter(config, () => new DefaultRectanglePlacer(config)); var sizeOfRectangle = new Size(4, 4);
+			cloud = new CircularCloudLayouter(config, new DefaultRectanglePlacer(config)); var sizeOfRectangle = new Size(4, 4);
 			cloud.PutNextRectangle(sizeOfRectangle);
 			cloud.PutNextRectangle(sizeOfRectangle).Size.
 				ShouldBeEquivalentTo(sizeOfRectangle);
@@ -51,7 +51,7 @@ namespace TagsCloudVisualization.CircularCloud.CloudLayouter
 		{
 			var center = new Point(150, 150);
 			Config config = new Config(null, new Size(1000, 1000), center, null, 1500, false, false, false);
-			cloud = new CircularCloudLayouter(config, () => new DefaultRectanglePlacer(config));
+			cloud = new CircularCloudLayouter(config, new DefaultRectanglePlacer(config));
 			var listOfRectangles = new List<Rectangle>();
 			for (var i = 0; i < count; i++)
 			{
@@ -70,7 +70,7 @@ namespace TagsCloudVisualization.CircularCloud.CloudLayouter
 			Config config = new Config(null, new Size(1000, 1000), center, null, 1500, false, false, false);
 			
 			Assert.Throws<ArgumentException>(() =>
-				new CircularCloudLayouter(config, () => new DefaultRectanglePlacer(config)));
+				new CircularCloudLayouter(config,  new DefaultRectanglePlacer(config)));
 		}
 
 		[Test]
@@ -78,7 +78,7 @@ namespace TagsCloudVisualization.CircularCloud.CloudLayouter
 		{
 			var center = new Point(6, 7);
 			Config config = new Config(null, new Size(1000, 1000), center, null, 1500, false, false, false);
-			cloud = new CircularCloudLayouter(config, () => new DefaultRectanglePlacer(config));
+			cloud = new CircularCloudLayouter(config, new DefaultRectanglePlacer(config));
 			Assert.Throws<ArgumentException>(() => cloud.PutNextRectangle(new Size(4, -4)));
 		}
 
@@ -99,7 +99,7 @@ namespace TagsCloudVisualization.CircularCloud.CloudLayouter
 		{
 			var center = new Point(150, 150);
 			Config config = new Config(null, new Size(1000, 1000), center, null, 1500, false, false, false);
-			cloud = new CircularCloudLayouter(config, () => new DefaultRectanglePlacer(config));
+			cloud = new CircularCloudLayouter(config, new DefaultRectanglePlacer(config));
 			double area = 0;
 			double radiusOfCloud = 0;
 			for (var i = 0; i < count; i++)

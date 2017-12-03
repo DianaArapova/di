@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -8,19 +9,21 @@ namespace TagsCloudVisualization.CircularCloud.TagCloudMaker
 {
 	public class TagMaker : ITagMaker
 	{
-		private readonly ICircularCloudLayouter cloudMaker;
+		private ICircularCloudLayouter cloudMaker;
+		private readonly Func<ICircularCloudLayouter> cloudMakerFunc;
 		private readonly string font;
 		private int maxSize = 80;
 		private int minSize = 20;
 
-		public TagMaker(ICircularCloudLayouter cloudMaker, Config config)
+		public TagMaker(Func<ICircularCloudLayouter> cloudMaker, Config config)
 		{
-			this.cloudMaker = cloudMaker;
+			cloudMakerFunc = cloudMaker;
 			font = config.TagFontName;
 		}
 
 		public Dictionary<string, Rectangle> MakeCloud(Dictionary<string, int> tagsList, Size imageSize)
 		{
+			cloudMaker = cloudMakerFunc.Invoke();
 			return tagsList
 				.ToDictionary(tag => tag.Key,
 					tag =>
