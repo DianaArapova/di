@@ -9,7 +9,6 @@ namespace TagsCloudVisualization.CircularCloud.TagCloudMaker
 {
 	public class TagMaker : ITagMaker
 	{
-		private ICircularCloudLayouter cloudMaker;
 		private readonly Func<ICircularCloudLayouter> cloudMakerFunc;
 		private readonly string font;
 		private int maxSize = 80;
@@ -23,7 +22,7 @@ namespace TagsCloudVisualization.CircularCloud.TagCloudMaker
 
 		public Dictionary<string, Rectangle> MakeCloud(Dictionary<string, int> tagsList, Size imageSize)
 		{
-			cloudMaker = cloudMakerFunc();
+			var cloudMaker = cloudMakerFunc();
 			return tagsList
 				.ToDictionary(tag => tag.Key,
 					tag =>

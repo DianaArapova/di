@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using Autofac;
-using Autofac.Core;
 using CommandLine;
 using TagsCloudVisualization.CircularCloud.CloudLayouter;
-using TagsCloudVisualization.CircularCloud.RectanglePlacer;
 
 namespace TagsCloudVisualization
 {
