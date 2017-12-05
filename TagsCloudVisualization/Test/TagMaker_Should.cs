@@ -36,5 +36,13 @@ namespace TagsCloudVisualization.Test
 			var dictRect = tagMaker.MakeCloud(dict, Size.Empty);
 			dictRect.Select(rect => rect.Value.Height).Should().BeInDescendingOrder();
 		}
+
+		[Test]
+		public void TagMaker_ShouldCallLayouter()
+		{
+			var dict = new Dictionary<string, int> { { "asfe", 6 }, { "ava", 2 }, { "sdfs", 2 } };
+			var dictRect = tagMaker.MakeCloud(dict, Size.Empty);
+			layouter.Verify(lw => lw.PutNextRectangle(It.IsAny<Size>()), Times.Exactly(3));
+		}
 	}
 }
