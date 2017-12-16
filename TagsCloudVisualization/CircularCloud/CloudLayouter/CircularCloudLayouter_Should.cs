@@ -38,7 +38,7 @@ namespace TagsCloudVisualization.CircularCloud.CloudLayouter
 			Config config = new Config(null, new Size(1000, 1000), center, null, 1500, false, false, false);
 			cloud = new CircularCloudLayouter(config, new DefaultRectanglePlacer(config)); var sizeOfRectangle = new Size(4, 4);
 			cloud.PutNextRectangle(sizeOfRectangle);
-			cloud.PutNextRectangle(sizeOfRectangle).Size.
+			cloud.PutNextRectangle(sizeOfRectangle).Value.Size.
 				ShouldBeEquivalentTo(sizeOfRectangle);
 		}
 
@@ -55,7 +55,7 @@ namespace TagsCloudVisualization.CircularCloud.CloudLayouter
 			var listOfRectangles = new List<Rectangle>();
 			for (var i = 0; i < count; i++)
 			{
-				listOfRectangles.Add(cloud.PutNextRectangle(new Size(width, height)));
+				listOfRectangles.Add(cloud.PutNextRectangle(new Size(width, height)).Value);
 			}
 			listOfRectangles.SelectMany(a => listOfRectangles, (n, a) => new { n, a }).
 				Where(a => a.a != a.n).
@@ -105,9 +105,9 @@ namespace TagsCloudVisualization.CircularCloud.CloudLayouter
 			for (var i = 0; i < count; i++)
 			{
 				var rectangle = cloud.PutNextRectangle(new Size(height, width));
-				area += rectangle.Height * rectangle.Width;
+				area += rectangle.Value.Height * rectangle.Value.Width;
 				radiusOfCloud = Math.Max(radiusOfCloud,
-					DistanceBetweenTwoPoint(center, rectangle.Location));
+					DistanceBetweenTwoPoint(center, rectangle.Value.Location));
 			}
 			var radiusOfCircle = Math.Sqrt(area / Math.PI);
 			radiusOfCloud.Should().BeLessThan(4 * radiusOfCircle);

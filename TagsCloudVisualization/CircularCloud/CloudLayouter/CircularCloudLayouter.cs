@@ -12,17 +12,15 @@ namespace TagsCloudVisualization.CircularCloud.CloudLayouter
 		public CircularCloudLayouter(Config congig, IRectanglePlacer rectanglePlacer)
 		{
 			var center = congig.Center;
-			if (center.X < 0 || center.Y < 0)
-				throw new ArgumentException("Coordinat of center is negative");
 			Center = center;
 			this.rectanglePlacer = rectanglePlacer;
 		}
 
-		public Rectangle PutNextRectangle(Size rectangleSize)
+		public Result<Rectangle> PutNextRectangle(Size rectangleSize)
 		{
 			if (rectangleSize.Height < 0 || rectangleSize.Width < 0)
-				throw new ArgumentException("Size of rectangle is negative");
-			return rectanglePlacer.FindLocationForRectangle(rectangleSize);
+				return Result.Fail<Rectangle>("Size of rectangle is negative");
+			return Result.Ok(rectanglePlacer.FindLocationForRectangle(rectangleSize));
 		}
 	}
 }

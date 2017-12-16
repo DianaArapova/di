@@ -5,6 +5,7 @@ namespace TagsCloudVisualization.CircularCloud.TagCloudMaker
 {
 	public interface ITagMaker
 	{
-		Dictionary<string, Rectangle> MakeCloud(Dictionary<string, int> tagsList, Size imageSize);
+		Dictionary<string, Rectangle> MakeCloud
+			(Dictionary<string, int> tagsList, Size imageSize);
 	}
 }

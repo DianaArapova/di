@@ -83,6 +83,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CircularCloud\RectanglePlacer\DefaultRectanglePlacer.cs" />
     <Compile Include="CircularCloud\RectanglePlacer\IRectanglePlacer.cs" />
+    <Compile Include="Result.cs" />
     <Compile Include="TagReader\IdentifyPatrOfSpeech\DeterminerPartOfSpeech.cs" />
     <Compile Include="TagReader\IdentifyPatrOfSpeech\IDetermPOS.cs" />
     <Compile Include="TagReader\IdentifyPatrOfSpeech\PartOfSpeech.cs" />

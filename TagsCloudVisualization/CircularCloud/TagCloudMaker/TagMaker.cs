@@ -34,7 +34,9 @@ namespace TagsCloudVisualization.CircularCloud.TagCloudMaker
 							FontStyle.Regular, GraphicsUnit.Pixel));
 						
 						return cloudMaker.PutNextRectangle(rectangleSize);
-					});
+					})
+				.Where(tag => tag.Value.IsSuccess)
+				.ToDictionary(tag => tag.Key, tag => tag.Value.Value);
 		}
 	}
 }
