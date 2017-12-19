@@ -18,6 +18,7 @@ namespace TagsCloudVisualization.Test
 		{
 			config = new Config(null, Size.Empty, Point.Empty, null, 100, false, false, true);
 			var mockPos = new Mock<IDetermPOS>();
+			var logger = new Mock<ILogger>();
 			var goodWord = new[] { "grow", "die", "born" };
 			var boringWord = new[] { "a", "the", "and" };
 
@@ -26,7 +27,7 @@ namespace TagsCloudVisualization.Test
 			foreach (var word in boringWord)
 				mockPos.Setup(pt => pt.GetPartOfSpeech(word)).Returns("P");
 			determPos = mockPos.Object;
-			transformForPos = new TransformForPOS(config, determPos);
+			transformForPos = new TransformForPOS(config, determPos, logger.Object);
 		}
 
 		[Test]

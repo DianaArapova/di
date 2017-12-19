@@ -5,6 +5,6 @@ namespace TagsCloudVisualization.CloudDrawer
 {
 	public interface ICloudDrawer
 	{
-		Bitmap Draw(Dictionary<string, Rectangle> tagList);
+		Result<Bitmap> Draw(Dictionary<string, Rectangle> tagList);
 	}
 }

@@ -16,10 +16,11 @@ namespace TagsCloudVisualization
 		private readonly IParser parser;
 		private readonly IPropertyForWordlist getterFrequancy;
 		private readonly ITagReader tagReader;
+		private readonly ILogger logger;
 
 		public CloudCreatorFromText(ICloudDrawer cloudDrawer, ITagMaker tagMaker, 
 			IParser parser, IPropertyForWordlist getterFrequancy,
-			IWordListUpdater wordListUpdater, ITagReader tagReader)
+			IWordListUpdater wordListUpdater, ITagReader tagReader, ILogger logger)
 		{
 			this.cloudDrawer = cloudDrawer;
 			this.getterFrequancy = getterFrequancy;
@@ -27,17 +28,22 @@ namespace TagsCloudVisualization
 			this.tagMaker = tagMaker;
 			this.wordListUpdater = wordListUpdater;
 			this.tagReader = tagReader;
+			this.logger = logger;
 		}
 
 		public void FromTextToImg(string inputPath, string imagePath, Size imageSize)
 		{
-			var text = tagReader.Read(inputPath);
-			var englishWords = parser.Parse(text);
+			var textResult = tagReader.Read(inputPath);
+			if (!textResult.IsSuccess)
+				logger.LogError(textResult.Error);
+			var englishWords = parser.Parse(textResult.Value);
 			var goodEnglishWords = wordListUpdater.UpdateWordList(englishWords);
 			var tagsList = getterFrequancy.GetProperty(goodEnglishWords);
 			var tagsRectanglesDict = tagMaker.MakeCloud(tagsList, imageSize);
-			var bitmap = cloudDrawer.Draw(tagsRectanglesDict);
-			bitmap.Save(imagePath);
+			var bitmapResult = cloudDrawer.Draw(tagsRectanglesDict);
+			if (!bitmapResult.IsSuccess)
+				logger.LogError(bitmapResult.Error);
+			bitmapResult.Value.Save(imagePath);
 		}
 	}
 }

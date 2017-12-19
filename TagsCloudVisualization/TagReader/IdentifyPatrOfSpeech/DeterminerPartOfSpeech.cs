@@ -1,23 +1,37 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using SharpNL.POSTag;
 
 namespace TagsCloudVisualization.TagReader.IdentifyPatrOfSpeech
 {
 	public class DeterminerPartOfSpeech : IDetermPOS
 	{
-		private readonly POSTaggerME posTagger;
+		private const string fileName = "en-pos-maxent.bin";
+		private readonly Result<POSTaggerME> posTaggerResult;
+
+		private POSModel CreatePosModel()
+		{
+			using (var modelFile = new FileStream(fileName, FileMode.Open))
+				return new POSModel(modelFile);
+		}
 
 		public DeterminerPartOfSpeech()
 		{
-			POSModel posModel;
-			using (var modelFile = new FileStream("en-pos-maxent.bin", FileMode.Open))
-				posModel = new POSModel(modelFile);
-			posTagger = new POSTaggerME(posModel);
+			var posModel = Result.Of(CreatePosModel);
+			if (posModel.IsSuccess)
+			{
+				posTaggerResult = Result.Ok(new POSTaggerME(posModel.Value));
+				return;
+			}
+			posTaggerResult = Result.Fail<POSTaggerME>("File with setting for POS library " +
+			                                           $"{fileName} doesn't exist");
 		}
 
-		public string GetPartOfSpeech(string word)
+		public Result<string> GetPartOfSpeech(string word)
 		{
-			return posTagger.Tag(new[] {word})[0][0].ToString();
+			if (!posTaggerResult.IsSuccess)
+				return Result.Fail<string>(posTaggerResult.Error);
+			return Result.Ok(posTaggerResult.Value.Tag(new[] {word})[0][0].ToString());
 		}
 	}
 }

@@ -5,9 +5,12 @@ namespace TagsCloudVisualization.TagReader.TagReader
 {
 	public class TagReaderFromTextFile :ITagReader
 	{
-		public IEnumerable<string> Read(string path)
+		public Result<IEnumerable<string>> Read(string path)
 		{
-			return File.ReadLines(path);
+			var result = Result.Of(() => File.ReadLines(path));
+			return result.IsSuccess ?
+				Result.Ok(File.ReadLines(path)) :
+				Result.Fail<IEnumerable<string>>($"File {path} doesn't exit");
 		}
 	}
 }

@@ -77,7 +77,9 @@
     <Compile Include="CloudDrawer\CloudDrawer.cs" />
     <Compile Include="CloudDrawer\ICloudDrawer.cs" />
     <Compile Include="Config.cs" />
+    <Compile Include="ILogger.cs" />
     <Compile Include="ITagCloudCreatorFromText.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

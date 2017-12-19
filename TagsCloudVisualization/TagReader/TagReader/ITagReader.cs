@@ -4,6 +4,6 @@ namespace TagsCloudVisualization.TagReader.TagReader
 {
 	public interface ITagReader
 	{
-		IEnumerable<string> Read(string path);
+		Result<IEnumerable<string>> Read(string path);
 	}
 }

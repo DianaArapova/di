@@ -8,19 +8,24 @@ namespace TagsCloudVisualization.TagReader.TransformWords
 	{
 		private readonly Dictionary<string, bool> isNeedPOS;
 		private readonly IDetermPOS determPos;
-		public TransformForPOS(Config config, IDetermPOS determPos)
+		private readonly ILogger logger;
+		public TransformForPOS(Config config, IDetermPOS determPos, ILogger logger)
 		{
 			isNeedPOS = new Dictionary<string, bool>
 			{
 				{"N", config.Noun}, {"V", config.Verb}, {"J", config.Adj}
 			};
 			this.determPos = determPos;
+			this.logger = logger;
 		}
 
 		private bool IsGoodPOS(string word)
 		{
 			var pos = determPos.GetPartOfSpeech(word);
-			return isNeedPOS.ContainsKey(pos) && isNeedPOS[pos];
+			if (pos.IsSuccess)
+				return isNeedPOS.ContainsKey(pos.Value) && isNeedPOS[pos.Value];
+			logger.LogError(pos.Error);
+			return false;
 		}
 
 		public IEnumerable<string> Transform(IEnumerable<string> wordlist)

@@ -31,8 +31,7 @@ namespace TagsCloudVisualization.CircularCloud.TagCloudMaker
 						* (maxSize - minSize) + minSize);
 						var rectangleSize = TextRenderer.MeasureText(tag.Key,
 							new Font(new FontFamily(this.font), tagSize,
-							FontStyle.Regular, GraphicsUnit.Pixel));
-						
+							FontStyle.Regular, GraphicsUnit.Pixel));	
 						return cloudMaker.PutNextRectangle(rectangleSize);
 					})
 				.Where(tag => tag.Value.IsSuccess)

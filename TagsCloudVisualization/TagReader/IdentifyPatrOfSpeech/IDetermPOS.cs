@@ -2,6 +2,6 @@
 {
 	public interface IDetermPOS
 	{
-		string GetPartOfSpeech(string word);
+		Result<string> GetPartOfSpeech(string word);
 	}
 }
