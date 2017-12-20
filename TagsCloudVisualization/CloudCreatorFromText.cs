@@ -33,16 +33,13 @@ namespace TagsCloudVisualization
 
 		public void FromTextToImg(string inputPath, string imagePath, Size imageSize)
 		{
-			var textResult = tagReader.Read(inputPath);
-			if (!textResult.IsSuccess)
-				logger.LogError(textResult.Error);
-			var englishWords = parser.Parse(textResult.Value);
-			var goodEnglishWords = wordListUpdater.UpdateWordList(englishWords);
-			var tagsList = getterFrequancy.GetProperty(goodEnglishWords);
-			var tagsRectanglesDict = tagMaker.MakeCloud(tagsList, imageSize);
-			var bitmapResult = cloudDrawer.Draw(tagsRectanglesDict);
-			if (!bitmapResult.IsSuccess)
-				logger.LogError(bitmapResult.Error);
+			var bitmapResult = tagReader.Read(inputPath)
+				.Then(parser.Parse)
+				.Then(wordListUpdater.UpdateWordList)
+				.Then(getterFrequancy.GetProperty)
+				.Then(tagMaker.MakeCloud)
+				.Then(cloudDrawer.Draw)
+				.Catch(logger.LogError);
 			bitmapResult.Value.Save(imagePath);
 		}
 	}

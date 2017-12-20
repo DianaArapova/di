@@ -84,6 +84,15 @@ namespace TagsCloudVisualization
 			return input.Then(inp => Of(() => continuation(inp)));
 		}
 
+		public static Result<TInput> Catch<TInput>(
+			this Result<TInput> input,
+			Action<string> continuation)
+		{
+			if (!input.IsSuccess)
+				continuation(input.Error);
+			return input;
+		}
+
 		public static Result<None> Then<TInput>(
 			this Result<TInput> input,
 			Action<TInput> continuation)

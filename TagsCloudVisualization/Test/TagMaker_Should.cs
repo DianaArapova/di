@@ -33,7 +33,7 @@ namespace TagsCloudVisualization.Test
 		public void TagMaker_ShouldGetSizeInDescendingOrder()
 		{
 			var dict = new Dictionary<string, int> {{"asfe", 6}, { "ava", 2 }, { "sdfs", 1}};
-			var dictRect = tagMaker.MakeCloud(dict, Size.Empty);
+			var dictRect = tagMaker.MakeCloud(dict);
 			dictRect.Select(rect => rect.Value.Height).Should().BeInDescendingOrder();
 		}
 
@@ -41,7 +41,7 @@ namespace TagsCloudVisualization.Test
 		public void TagMaker_ShouldCallLayouter()
 		{
 			var dict = new Dictionary<string, int> { { "asfe", 6 }, { "ava", 2 }, { "sdfs", 2 } };
-			var dictRect = tagMaker.MakeCloud(dict, Size.Empty);
+			var dictRect = tagMaker.MakeCloud(dict);
 			layouter.Verify(lw => lw.PutNextRectangle(It.IsAny<Size>()), Times.Exactly(3));
 		}
 	}

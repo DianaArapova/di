@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -11,6 +12,7 @@ namespace TagsCloudVisualization.CircularCloud.TagCloudMaker
 	{
 		private readonly Func<ICircularCloudLayouter> cloudMakerFunc;
 		private readonly string font;
+		private readonly Size imageSize;
 		private int maxSize = 80;
 		private int minSize = 20;
 
@@ -18,9 +20,10 @@ namespace TagsCloudVisualization.CircularCloud.TagCloudMaker
 		{
 			cloudMakerFunc = cloudMaker;
 			font = config.TagFontName;
+			imageSize = config.ImageSize;
 		}
 
-		public Dictionary<string, Rectangle> MakeCloud(Dictionary<string, int> tagsList, Size imageSize)
+		public Dictionary<string, Rectangle> MakeCloud(Dictionary<string, int> tagsList)
 		{
 			var cloudMaker = cloudMakerFunc();
 			return tagsList
